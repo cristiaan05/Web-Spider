@@ -12,9 +12,10 @@ class KSpider(scrapy.Spider):
     handle_httpstatus_list = [400, 302]
     def parse(self, response):
         #formdata = {'log': 'chtello05@gmail.com','pwd': 'Kemik2018' }
-        return [FormRequest(url="https://alcazaren.com.gt/catalogo-alcazaren", cookies={'edad_valida':'true'},callback=self.parse_categories)]
-        #return [FormRequest(url="https://alcazaren.com.gt/catalogo-alcazaren", cookies={'edad_valida':'true'},clickdata={'name':'user-submit'},callback=self.parse_categories)]
-
+        return [FormRequest(url="https://alcazaren.com.gt/catalogo-alcazaren", 
+            cookies={'edad_valida':'true'},
+            formdata={'user_login-9': 'chtello05', 'user_pass-9': 'Kemik2018'},
+            callback=self.parse_categories)]
     def parse_categories(self, response):
         for category in response.css('.menu-categorias-container ul li'):
             link = category.css('a::attr("href")').extract()[0]
